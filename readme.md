@@ -1,6 +1,20 @@
 Abdullah Alaqeel  
 G00915482
 
+Website:
+* http://swe645-aalaqeel.s3-website-us-east-1.amazonaws.com/  
+
+Server:
+* Rancher: https://54.86.219.59
+* Jenkins: http://54.86.219.59:8080  
+
+Agnets (load balanced)  
+* http://138.91.190.41
+* Survey: http://138.91.190.41/survey
+
+Video:  
+* https://youtu.be/Yv2tfsFx_AI
+
 ---
 
 ## Server:
@@ -8,21 +22,8 @@ G00915482
 I created a t2.medium EC2 instance and:
 * installed docker
 * installed jenkins
-* ran rancher as a docker container
-```
-sudo yum update
-sudo yum install docker
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo usermod -a -G docker ec2-user
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-sudo yum upgrade
-sudo yum install jenkins java-1.8.0-openjdk-devel
-sudo systemctl daemon-reload
-sudo systemctl start jenkins
-docker run -d --restart=unless-stopped --name rancher -p 80:80 -p 443:443 --privileged rancher/rancher:latest
-```
+* ran rancher as a docker container  
+Steps to reproduce are in [this script](server.sh).
 
 
 ## Agents:
@@ -37,14 +38,4 @@ I created a multi-step jenkins pipeline and used multiple plugins to achieve the
 However, to deploy the updates to kubernates, I run a kubectl script to update the image in the kubernates deployment, which is then rolled out to all the pods.
 
 ![Jenkins Build Config](JenkinsBuildConfig.png)
-
----
-### Public IP Addresses:
-Server:
-* Rancher: https://54.86.219.59
-* Jenkins: http://54.86.219.59:8080
-
-
-Agnets (load balanced)
-* http://138.91.190.41
-* Survey: http://138.91.190.41/survey
+![Web Hook](webhook.png)
