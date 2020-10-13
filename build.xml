@@ -13,10 +13,10 @@
 		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
 		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
 	</tstamp>
-	<property name="build-directory" value="" />
+	<property name="build-directory" value="." />
 
 	<target name="war" depends="">
-		<mkdir dir="${build-directory}" />
+		<!-- <mkdir dir="${build-directory}" /> -->
 		<delete file="${build-directory}/${war-file-name}" />
 		<war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">
 			<classes dir="${classes-directory}" />
